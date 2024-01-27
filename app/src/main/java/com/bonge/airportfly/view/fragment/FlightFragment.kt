@@ -29,6 +29,14 @@ class FlightFragment : BaseFragment<FragmentFlightBinding>(
             ) { tab, position ->
                 val array = resources.getStringArray(R.array.fly_type)
                 tab.text = array[position]
+                when (position) {
+                    0 -> {
+                        tab.setIcon(R.drawable.ic_departing_flight)
+                    }
+                    1 -> {
+                        tab.setIcon(R.drawable.ic_arrival_flight)
+                    }
+                }
             }.attach()
         }
     }
