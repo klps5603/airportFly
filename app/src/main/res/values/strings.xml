@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">桃園機場航班資訊</string>
+    <string name="airport">航班</string>
+    <string name="exchange_rate">匯率</string>
+    <string-array name="fly_type">
+        <item>起飛班機</item>
+        <item>抵達班機</item>
+    </string-array>
+    <string name="estimatedTime">預計時間</string>
+    <string name="actualTime">實際時間</string>
+    <string name="flight_number">航機班號：%s</string>
+    <string name="gate_way">航廈/登機門：%s/%s</string>
+    <string name="info">提示</string>
+    <string name="confirm">確認</string>
+    <string name="cancel">取消</string>
+    <string name="please_check_network">請檢查網路連線</string>
+    <string name="retry_connect">重新連線</string>
+    <string name="confirm_exit_app">再點擊一次離開APP</string>
+    <string name="number_format_error">請輸入正確的數字</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/airport"
+        android:icon="@drawable/ic_airport"
+        android:title="@string/airport" />
+
+    <item
+        android:id="@+id/exchange_rate"
+        android:icon="@drawable/ic_exchange_rate"
+        android:title="@string/exchange_rate" />
+</menu>
