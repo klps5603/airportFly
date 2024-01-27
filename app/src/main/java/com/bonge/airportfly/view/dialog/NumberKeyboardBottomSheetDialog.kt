@@ -23,11 +23,11 @@ class NumberKeyboardBottomSheetDialog(
         fun onCallback(currency: Currency)
     }
 
-    private val dialog = BottomSheetDialog(context)
+    private val dialog = BottomSheetDialog(context, R.style.BottomSheetDialog)
     private val binding = DialogNumberKeyboardBinding.inflate(LayoutInflater.from(context))
     private var onConfirmListener: OnConfirmListener? = null
-    private val onNumberClickListener = View.OnClickListener {
-        val value = binding.currencyValueTextView.text
+    private val onClickListener = View.OnClickListener {
+        val value = binding.currencyValueTextView.text.toString()
         when (it.id) {
             R.id.number_0_button -> {
                 binding.currencyValueTextView.text = "${value}0"
@@ -62,33 +62,47 @@ class NumberKeyboardBottomSheetDialog(
             R.id.number_point_button -> {
                 binding.currencyValueTextView.text = "${value}."
             }
+            R.id.dismiss_button -> {
+                dialog.dismiss()
+            }
+            R.id.cancel_button -> {
+                binding.currencyValueTextView.text = ""
+            }
+            R.id.backspace_button -> {
+                if (value.isNotEmpty()) {
+                    binding.currencyValueTextView.text = value.substring(0, value.length - 1)
+                }
+            }
+            R.id.confirm_button -> {
+                if (checkInput()) {
+                    currency.value = value.toDouble()
+                    onConfirmListener?.onCallback(currency)
+                    dialog.dismiss()
+                }
+            }
         }
     }
 
     init {
         binding.apply {
             currencyTextView.text = currency.name
-            number0Button.setOnClickListener(onNumberClickListener)
-            number1Button.setOnClickListener(onNumberClickListener)
-            number2Button.setOnClickListener(onNumberClickListener)
-            number3Button.setOnClickListener(onNumberClickListener)
-            number4Button.setOnClickListener(onNumberClickListener)
-            number5Button.setOnClickListener(onNumberClickListener)
-            number6Button.setOnClickListener(onNumberClickListener)
-            number7Button.setOnClickListener(onNumberClickListener)
-            number8Button.setOnClickListener(onNumberClickListener)
-            number9Button.setOnClickListener(onNumberClickListener)
-            numberPointButton.setOnClickListener(onNumberClickListener)
-            confirmButton.setOnClickListener {
-                if (checkInput()) {
-                    currency.value=binding.currencyValueTextView.text.toString().toDouble()
-                    onConfirmListener?.onCallback(currency)
-                    dialog.dismiss()
-                }
-            }
+            number0Button.setOnClickListener(onClickListener)
+            number1Button.setOnClickListener(onClickListener)
+            number2Button.setOnClickListener(onClickListener)
+            number3Button.setOnClickListener(onClickListener)
+            number4Button.setOnClickListener(onClickListener)
+            number5Button.setOnClickListener(onClickListener)
+            number6Button.setOnClickListener(onClickListener)
+            number7Button.setOnClickListener(onClickListener)
+            number8Button.setOnClickListener(onClickListener)
+            number9Button.setOnClickListener(onClickListener)
+            numberPointButton.setOnClickListener(onClickListener)
+            confirmButton.setOnClickListener(onClickListener)
+            dismissButton.setOnClickListener(onClickListener)
+            cancelButton.setOnClickListener(onClickListener)
+            backspaceButton.setOnClickListener(onClickListener)
             dialog.setContentView(root)
         }
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     private fun checkInput(): Boolean {
