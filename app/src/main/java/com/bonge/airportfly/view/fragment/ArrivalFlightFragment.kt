@@ -20,24 +20,13 @@ class ArrivalFlightFragment : BaseFragment<FragmentArrivalFlightBinding>(
 ) {
     private val viewModel: FlightViewModel by activityViewModel()
     private val adapter = FlightAdapter()
-    private val airPortFlyTimer = Timer()
+    private lateinit var airPortFlyTimer: Timer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         context?.loading {
             getAirPortFly()
         }
-
-        airPortFlyTimer.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                launch {
-                    getAirPortFly()
-                }
-            }
-
-        }, 10000, 10000)
-
     }
 
     private suspend fun getAirPortFly() {
@@ -58,4 +47,23 @@ class ArrivalFlightFragment : BaseFragment<FragmentArrivalFlightBinding>(
             adapter.list = it.arrivalFlightList
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        airPortFlyTimer.cancel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        airPortFlyTimer = Timer()
+        airPortFlyTimer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                launch {
+                    getAirPortFly()
+                }
+            }
+
+        }, 10000, 10000)
+    }
+
 }
